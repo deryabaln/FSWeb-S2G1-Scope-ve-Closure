@@ -93,14 +93,12 @@ Aşağıdaki macSonucu() fonksiyonununda aşağıdakileri yapınız:
 */ 
 
 function macSonucu(takimSkoru, ceyrekSayisi){
-  let skorEvSahibi = 0
+  let skorEvSahibi = 0;
+  let skorKonukTakim = 0;
   for(let i = 1; i <= ceyrekSayisi; i++){
     skorEvSahibi  += takimSkoru()
-   } 
-   let skorKonukTakim = 0
-   for (let i = 1; i <= ceyrekSayisi; i++){
     skorKonukTakim  += takimSkoru()
-   }
+   };
    return {'EvSahibi' : skorEvSahibi,
     'KonukTakim' : skorKonukTakim}
   }  
@@ -164,39 +162,22 @@ MAÇ UZAR ise skorTabelasi(periyotSkoru,takimSkoru,4)
 
 function skorTabelasi(takimSkoru, periyotSkoru,ceyrekSayisi){
   let skorEvSahibi = 0
-  let periyotlar1 = []
+  let skorKonukTakim = 0
+  let sonuc = []
   for(let i = 1; i <= ceyrekSayisi; i++){
-    periyotlar1.push(takimSkoru())
-    skorEvSahibi = periyotlar1[0] + periyotlar1[1] + periyotlar1[2] + periyotlar1[3]
-   } 
-   let skorKonukTakim = 0
-   let periyotlar2 = []
-   for (let i = 1; i <= ceyrekSayisi; i++){
-    periyotlar2.push(takimSkoru())
-    skorKonukTakim = periyotlar2[0] + periyotlar2[1] + periyotlar2[2] + periyotlar2[3]
-   }
-   const skor = [
-    '1. Periyot: Ev Sahibi ' + periyotlar1[0] + '- Konuk Takım ' + periyotlar2[0], 
-    '2. Periyot: Ev Sahibi ' + periyotlar1[1] + '- Konuk Takım ' + periyotlar2[1],
-    '3. Periyot: Ev Sahibi ' + periyotlar1[2] + '- Konuk Takım ' + periyotlar2[2],
-    '4. Periyot: Ev Sahibi ' + periyotlar1[3] + '- Konuk Takım ' + periyotlar2[3],
-    'Maç Sonucu: Ev Sahibi ' +  skorEvSahibi + '- Konuk Takım ' + skorKonukTakim
-    ]
-    let uzatma = [periyotSkoru(takimSkoru)['EvSahibi'], periyotSkoru(takimSkoru)['KonukTakim']]
-    const yeniSkor = [
-    '1. Periyot: Ev Sahibi ' + periyotlar1[0] + '- Konuk Takım ' + periyotlar2[0], 
-    '2. Periyot: Ev Sahibi ' + periyotlar1[1] + '- Konuk Takım ' + periyotlar2[1],
-    '3. Periyot: Ev Sahibi ' + periyotlar1[2] + '- Konuk Takım ' + periyotlar2[2],
-    '4. Periyot: Ev Sahibi ' + periyotlar1[3] + '- Konuk Takım ' + periyotlar2[3],
-    '1. Uzatma: Ev Sahibi ' +uzatma[0] + '- Konuk Takım ' + uzatma[1],
-    'Maç Sonucu: Ev Sahibi ' + (skorEvSahibi+uzatma[0]) + '- Konuk Takım ' + (skorKonukTakim+uzatma[1])
-      ]
-      let sonuc =[];
-    if (skorEvSahibi== skorKonukTakim){
-      sonuc = yeniSkor
-    } else {
-      sonuc = skor
-    }
+    skorEvSahibi += (periyotSkoru(takimSkoru)).EvSahibi;
+    skorKonukTakim += (periyotSkoru(takimSkoru)).KonukTakim;
+    sonuc.push([i] + '.Periyot: Ev Sahibi ' + (periyotSkoru(takimSkoru)).EvSahibi + ' - Konuk Takım ' + (periyotSkoru(takimSkoru)).KonukTakim ) 
+  } 
+  let i = 1
+    while(skorEvSahibi== skorKonukTakim){
+      skorEvSahibi += (periyotSkoru(takimSkoru)).EvSahibi;
+      skorKonukTakim += (periyotSkoru(takimSkoru)).KonukTakim;
+      sonuc.push([i] + '.Uzatma: Ev Sahibi ' + (periyotSkoru(takimSkoru)).EvSahibi + ' - Konuk Takım ' + (periyotSkoru(takimSkoru)).KonukTakim ) ;
+      i++;
+    } 
+  sonuc.push('Maç Sonucu: ' + skorEvSahibi + ' - Konuk Takım ' + skorKonukTakim);
+
    return sonuc
 } 
 console.log(skorTabelasi(takimSkoru, periyotSkoru,4))
