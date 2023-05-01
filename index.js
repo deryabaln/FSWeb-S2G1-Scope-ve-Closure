@@ -32,6 +32,7 @@ console.log('örnek görev:', ilkiniDon(['as','sa'],function(metin){return metin
   1. skor1 ve skor2 arasındaki fark nedir?
   
   2. Hangisi bir closure kullanmaktadır? Nasıl tarif edebilirsin? (yarınki derste öğreneceksin :) )
+    skor1 clousere kullanmaktadır. ana foksiyon(skor arttırıcı) içerisinde gizli bir 
   
   3. Hangi durumda skor1 tercih edilebilir? Hangi durumda skor2 daha mantıklıdır?
 */
@@ -64,9 +65,12 @@ Aşağıdaki takimSkoru() fonksiyonununda aşağıdakileri yapınız:
 Not: Bu fonskiyon, aşağıdaki diğer görevler için de bir callback fonksiyonu olarak da kullanılacak
 */
 
-function takimSkoru(/*Kodunuzu buraya yazınız*/){
-    /*Kodunuzu buraya yazınız*/
+function takimSkoru(){
+ let max = 25
+ let min = 10
+  return Math.floor(Math.random() * (max - min + 1) ) + min;
 }
+console.log(takimSkoru())
 
 
 
@@ -86,11 +90,19 @@ Aşağıdaki macSonucu() fonksiyonununda aşağıdakileri yapınız:
 }
 */ 
 
-function macSonucu(/*Kodunuzu buraya yazınız*/){
-  /*Kodunuzu buraya yazınız*/
-}
-
-
+function macSonucu(takimSkoru, ceyrekSayisi){
+  let skorEvSahibi = 0
+  for(let i = 1; i <= ceyrekSayisi; i++){
+    skorEvSahibi  += takimSkoru()
+   } 
+   let skorKonukTakim = 0
+   for (let i = 1; i <= ceyrekSayisi; i++){
+    skorKonukTakim  += takimSkoru()
+   }
+   return {'EvSahibi' : skorEvSahibi,
+    'KonukTakim' : skorKonukTakim}
+  }  
+console.log(macSonucu(takimSkoru, 4))
 
 
 
@@ -109,10 +121,12 @@ Aşağıdaki periyotSkoru() fonksiyonununda aşağıdakileri yapınız:
   */
 
 
-function periyotSkoru(/*Kodunuzu buraya yazınız*/) {
-  /*Kodunuzu buraya yazınız*/
-
-}
+function periyotSkoru(takimSkoru){
+  return   {
+    'EvSahibi' : takimSkoru(),
+    'KonukTakim' : takimSkoru()
+  } 
+}console.log(periyotSkoru(takimSkoru))
 
 
 /* Zorlayıcı Görev 5: skorTabelasi() 
@@ -146,10 +160,44 @@ MAÇ UZAR ise skorTabelasi(periyotSkoru,takimSkoru,4)
 ] */
 // NOTE: Bununla ilgili bir test yoktur. Eğer logladığınız sonuçlar yukarıdakine benziyor ise tmamlandı sayabilirsiniz.
 
-function skorTabelasi(/*Kodunuzu buraya yazınız*/) {
-  /*Kodunuzu buraya yazınız*/
-}
-
+function skorTabelasi(takimSkoru, periyotSkoru,ceyrekSayisi){
+  let skorEvSahibi = 0
+  let periyotlar1 = []
+  for(let i = 1; i <= ceyrekSayisi; i++){
+    periyotlar1.push(takimSkoru())
+    skorEvSahibi = periyotlar1[0] + periyotlar1[1] + periyotlar1[2] + periyotlar1[3]
+   } 
+   let skorKonukTakim = 0
+   let periyotlar2 = []
+   for (let i = 1; i <= ceyrekSayisi; i++){
+    periyotlar2.push(takimSkoru())
+    skorKonukTakim = periyotlar2[0] + periyotlar2[1] + periyotlar2[2] + periyotlar2[3]
+   }
+   const skor = [
+    '1. Periyot: Ev Sahibi ' + periyotlar1[0] + '- Konuk Takım ' + periyotlar2[0], 
+    '2. Periyot: Ev Sahibi ' + periyotlar1[1] + '- Konuk Takım ' + periyotlar2[1],
+    '3. Periyot: Ev Sahibi ' + periyotlar1[2] + '- Konuk Takım ' + periyotlar2[2],
+    '4. Periyot: Ev Sahibi ' + periyotlar1[3] + '- Konuk Takım ' + periyotlar2[3],
+    'Maç Sonucu: Ev Sahibi ' +  skorEvSahibi + '- Konuk Takım ' + skorKonukTakim
+    ]
+    let uzatma = [periyotSkoru(takimSkoru)['EvSahibi'], periyotSkoru(takimSkoru)['KonukTakim']]
+    const yeniSkor = [
+    '1. Periyot: Ev Sahibi ' + periyotlar1[0] + '- Konuk Takım ' + periyotlar2[0], 
+    '2. Periyot: Ev Sahibi ' + periyotlar1[1] + '- Konuk Takım ' + periyotlar2[1],
+    '3. Periyot: Ev Sahibi ' + periyotlar1[2] + '- Konuk Takım ' + periyotlar2[2],
+    '4. Periyot: Ev Sahibi ' + periyotlar1[3] + '- Konuk Takım ' + periyotlar2[3],
+    '1. Uzatma: Ev Sahibi ' +uzatma[0] + '- Konuk Takım ' + uzatma[1],
+    'Maç Sonucu: Ev Sahibi ' + (skorEvSahibi+uzatma[0]) + '- Konuk Takım ' + (skorKonukTakim+uzatma[1])
+      ]
+      let sonuc =[];
+    if (skorEvSahibi== skorKonukTakim){
+      sonuc = yeniSkor
+    } else {
+      sonuc = skor
+    }
+   return sonuc
+} 
+console.log(skorTabelasi(takimSkoru, periyotSkoru,4))
 
 
 
