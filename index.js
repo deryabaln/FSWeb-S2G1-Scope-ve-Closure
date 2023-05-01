@@ -30,11 +30,13 @@ console.log('örnek görev:', ilkiniDon(['as','sa'],function(metin){return metin
   Aşağıdaki skor1 ve skor2 kodlarını inceleyiniz ve aşağıdaki soruları altına not alarak cevaplayın
   
   1. skor1 ve skor2 arasındaki fark nedir?
-  
+  skor 1 deki fonksiyon nested foksiyondur. içerisindeki skorGuncelle fonksiyonuna erişim kısıtlaması vardır. skorGuncelle fonksiyonuna sadece skorArtirici fonksiyonu içerisinde erişim vardır. 
+  skor 2 ise global scope dur. her yerden erişilebilir.
   2. Hangisi bir closure kullanmaktadır? Nasıl tarif edebilirsin? (yarınki derste öğreneceksin :) )
-    skor1 clousere kullanmaktadır. ana foksiyon(skor arttırıcı) içerisinde gizli bir 
+    skor1 clousere kullanmaktadır. ana foksiyon(skor arttırıcı) içerisinde gizli bir skor güncelle fonksiyonu vardır. 
   
   3. Hangi durumda skor1 tercih edilebilir? Hangi durumda skor2 daha mantıklıdır?
+  güncellemeyi sadece skorArtirici fonksiyonu içerisinde erişilmek istendiğinde skor 1 kullanılır. erişimin her yerde olması istendiğinde skor2 kullanılır.
 */
 
 // skor1 kodları
