@@ -165,15 +165,16 @@ function skorTabelasi(takimSkoru, periyotSkoru,ceyrekSayisi){
   let skorKonukTakim = 0
   let sonuc = []
   for(let i = 1; i <= ceyrekSayisi; i++){
-    skorEvSahibi += (periyotSkoru(takimSkoru)).EvSahibi;
-    skorKonukTakim += (periyotSkoru(takimSkoru)).KonukTakim;
-    sonuc.push([i] + '.Periyot: Ev Sahibi ' + (periyotSkoru(takimSkoru)).EvSahibi + ' - Konuk Takım ' + (periyotSkoru(takimSkoru)).KonukTakim ) 
+    let ceyrek =periyotSkoru(takimSkoru)
+    skorEvSahibi += ceyrek.EvSahibi;
+    skorKonukTakim += ceyrek.KonukTakim;
+    sonuc.push([i] + '.Periyot: Ev Sahibi ' + ceyrek.EvSahibi + ' - Konuk Takım ' + ceyrek.KonukTakim ) 
   } 
   let i = 1
     while(skorEvSahibi== skorKonukTakim){
-      skorEvSahibi += (periyotSkoru(takimSkoru)).EvSahibi;
-      skorKonukTakim += (periyotSkoru(takimSkoru)).KonukTakim;
-      sonuc.push([i] + '.Uzatma: Ev Sahibi ' + (periyotSkoru(takimSkoru)).EvSahibi + ' - Konuk Takım ' + (periyotSkoru(takimSkoru)).KonukTakim ) ;
+      skorEvSahibi += ceyrek.EvSahibi;
+      skorKonukTakim += ceyrek.KonukTakim;
+      sonuc.push([i] + '.Uzatma: Ev Sahibi ' + ceyrek.EvSahibi + ' - Konuk Takım ' + ceyrek.KonukTakim ) ;
       i++;
     } 
   sonuc.push('Maç Sonucu: ' + skorEvSahibi + ' - Konuk Takım ' + skorKonukTakim);
